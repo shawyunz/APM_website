@@ -14,6 +14,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
+            <h1>Registration</h1>
         </div>
         <table class="auto-style1">
             <tr>
@@ -21,7 +22,7 @@
                     <asp:Label ID="Label2" runat="server" Text="User ID"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtUserID" runat="server"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -29,7 +30,7 @@
                     <asp:Label ID="Label3" runat="server" Text="Name"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtUserName" runat="server"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -37,7 +38,7 @@
                     <asp:Label ID="Label4" runat="server" Text="Password"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtPassword" runat="server"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -45,11 +46,14 @@
                     <asp:Label ID="Label5" runat="server" Text="Confirm Password"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtConfirmPassword" runat="server"></asp:TextBox>
                 </td>
             </tr>
         </table>
-        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Signup" />
+        <asp:Button ID="Button1" runat="server" OnClick="BtnRegistration" Text="Signup" />
+        <p>
+            <asp:Label ID="lblMessage" runat="server" Text="Label"></asp:Label>
+        </p>
     </form>
 </body>
 </html>

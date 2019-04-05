@@ -40,6 +40,9 @@
                 <td>&nbsp;</td>
             </tr>
         </table>
+        <p>
+            <asp:Label ID="lblMessage" runat="server" Text="Label"></asp:Label>
+        </p>
     </form>
 </body>
 </html>

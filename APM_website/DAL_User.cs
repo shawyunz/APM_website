@@ -3,47 +3,74 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.UI.WebControls;
 
 namespace APM_website
 {
+    //This is the database connection API file, defining the DB functions
     public class DAL_User
     {
         SqlConnection sqlConn;
         string connStr = ConfigurationManager.ConnectionStrings["connDB"].ConnectionString;
 
-        public void registerUser(string userID, string name, string password)
+        //for registration
+        public void RegisterUser(string userID, string name, string password)
         {
-            sqlConn = new SqlConnection(connStr);
-            sqlConn.Open();
+            try
+            {
+                sqlConn = new SqlConnection(connStr);
+                sqlConn.Open();
 
-            string query_save = "insert into tblAPM_user values ('"
-                + userID + "', '"
-                + name + "', '"
-                + password + "')";
+                string query_save = "insert into tblAPM_user values ('"
+                    + userID + "', '"
+                    + name + "', '"
+                    + getHashed(userID, password) + "')";
 
-            SqlCommand sqlCmd = new SqlCommand(query_save, sqlConn);
-            sqlCmd.ExecuteNonQuery();
-            sqlConn.Close();
+                SqlCommand sqlCmd = new SqlCommand(query_save, sqlConn);
+                sqlCmd.ExecuteNonQuery();
+                sqlConn.Close();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
-        public Boolean loginUser(string userID, string password)
+        //for login
+        public Boolean LoginUser(string userID, string password)
         {
-            sqlConn = new SqlConnection(connStr);
-            sqlConn.Open();
-
-            string query_select = "select * from tblAPM_user where UserID = '"
-                + userID + "' and Password = '"
-                + password + "'";
-
-            SqlCommand sqlCmd = new SqlCommand(query_select, sqlConn);
-            SqlDataReader reader = sqlCmd.ExecuteReader();
-            if (reader.HasRows)
+            try
             {
-                return true;
+                sqlConn = new SqlConnection(connStr);
+                sqlConn.Open();
+
+                string query_select = "select * from tblAPM_user where UserID = '"
+                    + userID + "' and Password = '"
+                    + getHashed(userID, password) + "'";
+
+                SqlCommand sqlCmd = new SqlCommand(query_select, sqlConn);
+                SqlDataReader reader = sqlCmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private string getHashed(string str, string strSalt)
+        {
+            byte[] strByte = ASCIIEncoding.ASCII.GetBytes(str + strSalt + "AIS");
+            byte[] hashByte = SHA256.Create().ComputeHash(strByte);
+            return Convert.ToBase64String(hashByte);
         }
     }
 }
