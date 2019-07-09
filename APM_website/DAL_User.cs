@@ -27,7 +27,7 @@ namespace APM_website
                 string query_save = "insert into tblAPM_user values ('"
                     + userID + "', '"
                     + name + "', '"
-                    + getHashed(userID, password) + "')";
+                    + getHashed(userID, password) + userID + "')";
 
                 //option1: sql server
                 sqlConn = new SqlConnection(connSQL);
@@ -64,7 +64,7 @@ namespace APM_website
 
                 string query_select = "select * from tblAPM_user where UserID = '"
                     + userID + "' and Password = '"
-                    + getHashed(userID, password) + "'";
+                    + getHashed(userID, password) + userID + "'";
 
                 SqlCommand sqlCmd = new SqlCommand(query_select, sqlConn);
                 SqlDataReader reader = sqlCmd.ExecuteReader();
