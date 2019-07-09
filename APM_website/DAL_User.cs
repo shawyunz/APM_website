@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -14,28 +15,41 @@ namespace APM_website
     public class DAL_User
     {
         SqlConnection sqlConn;
-        string connStr = ConfigurationManager.ConnectionStrings["connDB"].ConnectionString;
+        MySqlConnection conn;
+        string connSQL = ConfigurationManager.ConnectionStrings["connDB"].ConnectionString;
+        string connMySQL = ConfigurationManager.ConnectionStrings["connAzureDB"].ConnectionString;
 
         //for registration
         public void RegisterUser(string userID, string name, string password)
         {
             try
             {
-                sqlConn = new SqlConnection(connStr);
-                sqlConn.Open();
-
                 string query_save = "insert into tblAPM_user values ('"
                     + userID + "', '"
                     + name + "', '"
                     + getHashed(userID, password) + "')";
 
+                //option1: sql server
+                sqlConn = new SqlConnection(connSQL);
+                sqlConn.Open();
+
                 SqlCommand sqlCmd = new SqlCommand(query_save, sqlConn);
                 sqlCmd.ExecuteNonQuery();
                 sqlConn.Close();
+
+
+                ////option2: mysql
+                //conn = new MySqlConnection();
+                //conn.ConnectionString = connMySQL;
+                //conn.Open();
+
+                //MySqlCommand cmd = conn.CreateCommand();
+                //cmd.CommandText = query_save;
+                //cmd.ExecuteNonQuery();
+                //conn.Close();
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -45,7 +59,7 @@ namespace APM_website
         {
             try
             {
-                sqlConn = new SqlConnection(connStr);
+                sqlConn = new SqlConnection(connSQL);
                 sqlConn.Open();
 
                 string query_select = "select * from tblAPM_user where UserID = '"

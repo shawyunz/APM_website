@@ -22,7 +22,7 @@
                     <asp:Label ID="Label1" runat="server" Text="UserID"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtUID" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtUID" runat="server" MaxLength="50"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -30,7 +30,7 @@
                     <asp:Label ID="Label2" runat="server" Text="Password"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtPassword" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
                 </td>
             </tr>
             <tr>

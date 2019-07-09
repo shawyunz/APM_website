@@ -19,7 +19,7 @@
         <table class="auto-style1">
             <tr>
                 <td>
-                    <asp:Label ID="Label2" runat="server" Text="User ID"></asp:Label>
+                    <asp:Label ID="Label2" runat="server" Text="Email"></asp:Label>
                 </td>
                 <td>
                     <asp:TextBox ID="txtUserID" runat="server"></asp:TextBox>
@@ -38,7 +38,7 @@
                     <asp:Label ID="Label4" runat="server" Text="Password"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtPassword" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -46,7 +46,7 @@
                     <asp:Label ID="Label5" runat="server" Text="Confirm Password"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtConfirmPassword" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password"></asp:TextBox>
                 </td>
             </tr>
         </table>
